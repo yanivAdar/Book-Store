@@ -1,0 +1,14 @@
+.img-style{
+    border-radius: 50%;
+    box-shadow: 2px 2px 5px dimgrey;
+}
+.header-style{
+    background-color: rgba(224, 188, 44, 0.6);
+    border-bottom: 2px solid #ba7318;
+    margin-bottom: 10px;
+}
+.title-style{
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    padding: 5px;
+}
