@@ -3,11 +3,21 @@ import { MainLibraryService } from '../services/main-library.service';
 import { Popup } from 'ng2-opd-popup';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CostumValidatorsService } from '../services/costum-validators.service';
-import { Animations } from './main-library.animation';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-main-library',
-  animations: new Animations().animations,
+  animations:  [
+    trigger('fadeInOut', [
+        transition(':enter', [
+            style({ opacity: 0 }),
+            animate(300, style({ opacity: 1 }))
+        ]),
+        transition(':leave', [
+            animate(300, style({ opacity: 0 }))
+        ])
+    ])
+],
   templateUrl: './main-library.component.html',
   styleUrls: ['./main-library.component.css']
 })
@@ -20,6 +30,7 @@ export class MainLibraryComponent implements OnInit {
   currentBook: object;
   editMode: boolean = false;
   isTitleValid: boolean = false;
+  promptDelete: boolean;
 
   ngOnInit() {
     this.mainLibraryService.getAllBooks().subscribe(books => {

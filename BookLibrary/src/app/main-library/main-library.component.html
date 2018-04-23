@@ -7,7 +7,7 @@
         <th scope="col">Author</th>
         <th scope="col">Release Date</th>
         <th scope="col">
-          <button class="btn btn-style" (click)="createOrEditBook()">Create New Book</button>
+          <button class="btn btn-style" (click)="createOrEditBook(null,null); promptDelete = false">Create New Book</button>
         </th>
       </tr>
     </thead>
@@ -18,7 +18,7 @@
         <td>{{book.Author}}</td>
         <td>{{book.Date}}</td>
         <td>
-          <button class="btn btn-style btn-edit-style" (click)="createOrEditBook(book, i)">Edit Book</button>
+          <button class="btn btn-style btn-edit-style" (click)="createOrEditBook(book, i); promptDelete = false">Edit Book</button>
         </td>
       </tr>
     </tbody>
@@ -68,7 +68,7 @@
         Are you sure you want to delete this book?
       </h1>
       <div class="centerd">
-        <button type="button" class="btn btn-danger" (click)="onDelete(); promptDelete = false">Yes</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()">Yes</button>
         <button type="button" class="btn btn-success" (click)="promptDelete = false">No</button>
       </div>
     </div>
