@@ -10,6 +10,5 @@ export class MainLibraryService {
 
   getAllBooks() {
     return this.http.get('booksCollection.json').map(books => books.json());
-    // return this.http.get('src/assets/booksCollection.json').map(books => books.json());
   }
 }
