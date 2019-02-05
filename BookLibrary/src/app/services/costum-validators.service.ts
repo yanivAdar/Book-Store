@@ -15,4 +15,9 @@ export class CostumValidatorsService {
     return fixedTitle.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   }
 
+  existingTitle(title: string, booksCollection) {
+    return booksCollection.find(book => {
+      return book['Title'] === title.trim();
+    });
+  }
 }

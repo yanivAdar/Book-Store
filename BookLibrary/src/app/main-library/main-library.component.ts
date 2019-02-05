@@ -4,20 +4,21 @@ import { Popup } from 'ng2-opd-popup';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CostumValidatorsService } from '../services/costum-validators.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { INVALID } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-main-library',
-  animations:  [
+  animations: [
     trigger('fadeInOut', [
-        transition(':enter', [
-            style({ opacity: 0 }),
-            animate(300, style({ opacity: 1 }))
-        ]),
-        transition(':leave', [
-            animate(300, style({ opacity: 0 }))
-        ])
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(300, style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate(300, style({ opacity: 0 }))
+      ])
     ])
-],
+  ],
   templateUrl: './main-library.component.html',
   styleUrls: ['./main-library.component.css']
 })
@@ -91,11 +92,23 @@ export class MainLibraryComponent implements OnInit {
     this.isTitleValid = false;
   }
   checkValidTitle(event) {
-    this.isTitleValid = false;
-    this.booksCollection.map(book => {
-      if (book['Title'] == event.target.value) {
+    if (!this.editMode) {
+      this.isTitleValid = false;
+      if (this.costumValidators.existingTitle(event.target.value, this.booksCollection)) {
+        this.createAddForm.controls.Title.setErrors({ 'existingTitle': true })
         this.isTitleValid = true;
       }
-    })
+    }
+  }
+  onSort() {
+    this.booksCollection.sort(this.compare);
+  }
+  compare(book1, book2) {
+    if (book1.Title < book2.Title)
+      return -1;
+    if (book1.Title > book2.Title)
+      return 1;
+    return 0;
+
   }
 }
